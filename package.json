@@ -1,6 +1,7 @@
 {
   "name": "widget",
   "version": "0.1.0",
+  "homepage": "/widget",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
