@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { State } from '../../constants/states'
 import type { Carrier } from '../../types/carrier'
+import { Button } from '../form/button'
 import { CarrierSelector } from '../selectors/carrier'
 import { StateSelector } from '../selectors/state'
-import styles from './styles.module.css'
+import styles from './card.module.css'
 
 export const Card = () => {
   const [carrier, setCarrier] = useState<Carrier | null>(null)
@@ -16,8 +17,11 @@ export const Card = () => {
           <div>
             {JSON.stringify({ carrier: carrier?.name, state: state?.name })}
           </div>
+
           <CarrierSelector onChange={setCarrier} />
           <StateSelector onChange={setState} />
+
+          <Button>Submit</Button>
         </div>
       </div>
     </div>
