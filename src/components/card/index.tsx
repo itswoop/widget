@@ -14,15 +14,16 @@ export const Card = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.dashed}>
-        <div className={styles.selectors}>
+        <div className={styles.content}>
           <div>
             {JSON.stringify({ carrier: carrier?.name, state: state?.name })}
           </div>
 
-          <CarrierSelector onChange={setCarrier} />
-          <StateSelector onChange={setState} />
-
-          <Button>Submit</Button>
+          <div className={styles.form}>
+            <CarrierSelector onChange={setCarrier} />
+            <StateSelector onChange={setState} />
+            <Button>Submit</Button>
+          </div>
 
           {carrier && state && (
             <PremiumTable carrier={carrier.name} state={state.code} />

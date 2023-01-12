@@ -12,14 +12,14 @@ module.exports = {
   },
   extends: [
     'plugin:import/typescript',
+    'plugin:import/recommended',
     'react-app',
     'prettier',
-    'plugin:import/recommended',
   ],
-  plugins: ['react', 'prettier', '@typescript-eslint/eslint-plugin'],
+  plugins: ['react', '@typescript-eslint/eslint-plugin', 'prettier'],
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    'no-nested-ternary': 0,
+    'react/jsx-key': ['error'],
     'no-unused-vars': 'off',
     'import/default': ['error'],
     'import/named': ['error'],

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { URLS } from '../../constants/data'
 import { parseRemoteCsv } from '../../utils/parse'
+import styles from './table.module.css'
 
 type Row = {
   carrier: string
@@ -17,23 +18,30 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
   carrier,
   state,
 }) => {
-  const [data, setData] = useState<Row[]>([])
+  const [rows, setRows] = useState<Row[]>([])
 
   useEffect(() => {
     parseRemoteCsv<Row>(URLS.CSV_DATA, { header: true }).then(({ data }) =>
-      setData(data),
+      setRows(data),
     )
   }, [])
 
-  const row = data.find(
+  const data = rows.find(
     row =>
       row.carrier.toLowerCase() === carrier.toLowerCase() &&
       row.state.toLowerCase() === state.toLowerCase(),
   )
 
+  if (!data) return null
+
   return (
-    <div>
-      <span>{JSON.stringify(row)}</span>
+    <div className={styles.wrapper}>
+      <div>{data.carrier}</div>
+      <div>{data.state}</div>
+
+      {[2018, 2019, 2020, 2021, 2022].map(year => (
+        <div key={year}>{data[year]}</div>
+      ))}
     </div>
   )
 }

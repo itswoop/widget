@@ -1,0 +1,67 @@
+:root {
+  --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
+
+  --color-grey-darkest: rgb(51, 51, 51);
+  --color-grey-darker: rgba(51, 51, 51, 0.9);
+  --color-grey-dark: rgba(51, 51, 51, 0.8);
+  --color-grey-primary: rgba(51, 51, 51, 0.6);
+  --color-grey-light: #ddd;
+  --color-grey-lighter: #f2f2f2;
+  --color-grey-lightest: rgb(248, 248, 248);
+
+  --color-green-darkest: rgb(12, 97, 45);
+  --color-green-darker: rgb(22, 120, 60);
+  --color-green-dark: rgb(47, 150, 87);
+  --color-green-primary: rgb(75, 181, 116);
+  --color-green-light: rgb(133, 228, 170);
+  --color-green-lighter: #dafcdb;
+  --color-green-lightest: rgb(240, 255, 241);
+
+  --color-yellow-darkest: rgb(132, 108, 35);
+  --color-yellow-darker: rgb(183, 153, 61);
+  --color-yellow-dark: rgb(219, 184, 77);
+  --color-yellow-primary: rgb(255, 216, 96);
+  --color-yellow-light: rgb(255, 225, 134);
+  --color-yellow-lighter: rgb(255, 238, 187);
+  --color-yellow-lightest: rgb(255, 252, 235);
+
+  --color-purple-darkest: rgb(62, 24, 170);
+  --color-purple-darker: rgb(87, 64, 180);
+  --color-purple-dark: rgb(108, 97, 178);
+  --color-purple-primary: rgb(136, 123, 208);
+  --color-purple-light: rgb(178, 168, 236);
+  --color-purple-lighter: rgb(215, 209, 248);
+  --color-purple-lightest: rgb(247, 246, 250);
+
+  --color-blue-darkest: rgb(12, 101, 156);
+  --color-blue-darker: rgb(18, 127, 195);
+  --color-blue-dark: rgb(15, 144, 225);
+  --color-blue-primary: rgb(108, 187, 237);
+  --color-blue-light: rgb(158, 215, 248);
+  --color-blue-lighter: #e7f4fc;
+  --color-blue-lightest: rgb(240, 250, 255);
+
+  --color-orange-darkest: rgb(161, 88, 0);
+  --color-orange-darker: rgb(194, 113, 16);
+  --color-orange-dark: rgb(227, 136, 27);
+  --color-orange-primary: rgb(241, 157, 57);
+  --color-orange-light: rgb(255, 190, 113);
+  --color-orange-lighter: rgb(255, 218, 174);
+  --color-orange-lightest: rgb(255, 244, 232);
+
+  --color-red-darkest: rgb(143, 0, 24);
+  --color-red-darker: rgb(181, 36, 60);
+  --color-red-dark: rgb(210, 86, 107);
+  --color-red-primary: rgb(221, 115, 125);
+  --color-red-light: rgb(246, 148, 157);
+  --color-red-lighter: rgb(255, 181, 188);
+  --color-red-lightest: rgb(255, 227, 230);
+
+  /* Background */
+  --color-bg-body: #f9fcfe;
+
+  /* Shadow */
+  --shadow-xs: 0px 2px 2px var(--color-grey-light);
+  --shadow-default: 0px 4px 6px var(--color-grey-light);
+}
