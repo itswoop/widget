@@ -27,10 +27,12 @@ h1 {
   align-items: center;
   justify-content: stretch;
   gap: 1rem;
+  max-width: 100%;
 }
 
 .form {
   display: flex;
   align-items: stretch;
   gap: 1rem;
+  max-width: 100%;
 }
