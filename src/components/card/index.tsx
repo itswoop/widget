@@ -1,20 +1,25 @@
-import { useState } from 'react'
-import { CarrierList } from '../carriers'
+import { State } from '../../constants/states'
+import type { Carrier } from '../../types/carrier'
+import { CarrierSelector } from '../selectors/carrier'
+import { StateSelector } from '../selectors/state'
 import styles from './styles.module.css'
 
 export const Card = () => {
-  const [count, setCount] = useState(0)
+  const onCarrierChange = (carrier: Carrier | null) => {
+    console.log(carrier?.name)
+  }
+
+  const onStateChange = (state: State | null) => {
+    console.log(state?.code)
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.dashed}>
-        <h1>{count}</h1>
-        <div>
-          <button onClick={() => setCount(c => c - 1)}>-1</button>
-          <button onClick={() => setCount(c => c + 1)}>+1</button>
+        <div className={styles.selectors}>
+          <CarrierSelector onChange={onCarrierChange} />
+          <StateSelector onChange={onStateChange} />
         </div>
-
-        <CarrierList startAt={count} />
       </div>
     </div>
   )
