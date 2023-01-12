@@ -4,3 +4,28 @@
   background-color: var(--color-grey-lightest);
   padding: 1rem;
 }
+
+.table {
+  width: 100%;
+  text-align: right;
+}
+
+.table tr {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  flex-shrink: 0;
+  flex: 1;
+  padding: 0.5rem;
+}
+
+
+.summary {
+  background-color: var(--color-grey-light);
+  border-radius: 4px;
+}

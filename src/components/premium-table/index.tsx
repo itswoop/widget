@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { URLS } from '../../constants/data'
+import { formatMoneyString } from '../../utils/format'
 import { parseRemoteCsv } from '../../utils/parse'
 import styles from './table.module.css'
+import { calculateCompound, formatYears, parseChangesPerYear } from './utils'
 
-type Row = {
+export type Row = {
   carrier: string
   state: string
   [key: number]: string
@@ -26,6 +28,8 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
     )
   }, [])
 
+  if (!rows) return null
+
   const data = rows.find(
     row =>
       row.carrier.toLowerCase() === carrier.toLowerCase() &&
@@ -34,14 +38,40 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
   if (!data) return null
 
+  const years = formatYears(Object.keys(data))
+  const yearsWithChange = parseChangesPerYear(years, data)
+  const compound = calculateCompound(
+    1000,
+    yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
+  )
+
   return (
     <div className={styles.wrapper}>
-      <div>{data.carrier}</div>
-      <div>{data.state}</div>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th></th>
+            {years.map(year => (
+              <th key={year}>{year}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Change</th>
+            {yearsWithChange.map(({ year, percentInteger }) => (
+              <td key={year}>{percentInteger ? `${percentInteger}%` : '–'}</td>
+            ))}
+          </tr>
 
-      {[2018, 2019, 2020, 2021, 2022].map(year => (
-        <div key={year}>{data[year]}</div>
-      ))}
+          <tr className={styles.summary}>
+            <th>Example</th>
+            {compound.map((value, index) => (
+              <td key={index}>{formatMoneyString(value)}</td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
