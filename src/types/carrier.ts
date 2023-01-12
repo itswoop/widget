@@ -1,12 +1,12 @@
 export type Carrier = {
   carrier_id: string
   name: string
+  color: string
+  logo?: string
+  homepageUrl: string
   usernameFieldPlaceholder: string
   thirdFieldPlaceholder?: string
-  color: string
-  homepageUrl: string
   createAccountUrl: string
   resetPasswordUrl?: string
   disablePasswordField: boolean
-  logo?: string
 }
