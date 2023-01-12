@@ -4,6 +4,7 @@ import type { Carrier } from '../../types/carrier'
 import { Button } from '../form/button'
 import { CarrierSelector } from '../selectors/carrier'
 import { StateSelector } from '../selectors/state'
+import { Table } from '../table'
 import styles from './card.module.css'
 
 export const Card = () => {
@@ -22,6 +23,8 @@ export const Card = () => {
           <StateSelector onChange={setState} />
 
           <Button>Submit</Button>
+
+          <Table filter={{ carrier: carrier?.name, state: state?.code }} />
         </div>
       </div>
     </div>

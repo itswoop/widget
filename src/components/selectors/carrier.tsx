@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Select from 'react-select'
+import { URLS } from '../../constants/data'
 import type { Carrier } from '../../types/carrier'
 import styles from './styles.module.css'
 
@@ -17,9 +18,7 @@ export const CarrierSelector: React.FC<CarrierSelectorProps> = ({
   } | null>(null)
 
   useEffect(() => {
-    fetch(
-      'https://devtest-journey-dev.azurewebsites.net/WOOP/journey/1.0.0/canopy/carriers',
-    )
+    fetch(URLS.CARRIERS)
       .then(res => res.json())
       .then(data => setCarriers(data))
   }, [])
