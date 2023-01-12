@@ -9,13 +9,11 @@ type Row = {
 }
 
 type TableProps = {
-  filter: {
-    carrier?: string
-    state?: string
-  }
+  carrier: string
+  state: string
 }
 
-export const Table: React.FC<TableProps> = ({ filter }) => {
+export const Table: React.FC<TableProps> = ({ carrier, state }) => {
   const [data, setData] = useState<Row[]>([])
 
   useEffect(() => {
@@ -24,20 +22,15 @@ export const Table: React.FC<TableProps> = ({ filter }) => {
     )
   }, [])
 
+  const row = data.find(
+    row =>
+      row.carrier.toLowerCase() === carrier.toLowerCase() &&
+      row.state.toLowerCase() === state.toLowerCase(),
+  )
+
   return (
     <div>
-      {data
-        .filter(
-          row =>
-            row.carrier.toLowerCase() === filter.carrier?.toLowerCase() &&
-            row.state.toLowerCase() === filter.state?.toLowerCase(),
-        )
-        .slice(0, 10)
-        .map((row, index) => (
-          <div key={index}>
-            <span>{JSON.stringify(row)}</span>
-          </div>
-        ))}
+      <span>{JSON.stringify(row)}</span>
     </div>
   )
 }

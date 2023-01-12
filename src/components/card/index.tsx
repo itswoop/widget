@@ -24,7 +24,9 @@ export const Card = () => {
 
           <Button>Submit</Button>
 
-          <Table filter={{ carrier: carrier?.name, state: state?.code }} />
+          {carrier && state && (
+            <Table carrier={carrier.name} state={state.code} />
+          )}
         </div>
       </div>
     </div>
