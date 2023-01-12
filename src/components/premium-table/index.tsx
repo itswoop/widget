@@ -3,7 +3,11 @@ import { URLS } from '../../constants/data'
 import { formatMoneyString } from '../../utils/format'
 import { parseRemoteCsv } from '../../utils/parse'
 import styles from './table.module.css'
-import { calculateCompound, formatYears, parseChangesPerYear } from './utils'
+import {
+  calculateCompoundValues,
+  formatYears,
+  parseChangesPerYear,
+} from './utils'
 
 export type Row = {
   carrier: string
@@ -40,7 +44,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
   const years = formatYears(Object.keys(data))
   const yearsWithChange = parseChangesPerYear(years, data)
-  const compound = calculateCompound(
+  const compound = calculateCompoundValues(
     1000,
     yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
   )

@@ -1,5 +1,8 @@
 import { parse, ParseRemoteConfig, ParseResult } from 'papaparse'
 
+/**
+ * Parse a CSV file from a remote URL and return a promise with the results.
+ */
 export const parseRemoteCsv = async <T = unknown>(
   url: string,
   options?: Omit<
