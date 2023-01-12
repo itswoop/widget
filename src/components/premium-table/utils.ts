@@ -1,9 +1,9 @@
 import { Row } from '.'
 
 /**
- * Filter a string of possible years, and return an array of numbers with an additional year at the start.
+ * Parse a string array of possible years, and return an array of numbers with an additional year at the start.
  */
-export const formatYears = (years: string[]) => {
+export const parseYears = (years: string[]) => {
   const validYears = years.map(Number).filter(year => !isNaN(year))
   const minYear = Math.min(...validYears)
   return [minYear - 1, ...validYears]

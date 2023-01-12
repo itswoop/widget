@@ -5,7 +5,7 @@ import { parseRemoteCsv } from '../../utils/parse'
 import styles from './table.module.css'
 import {
   calculateCompoundValues,
-  formatYears,
+  parseYears,
   parseChangesPerYear,
 } from './utils'
 
@@ -42,7 +42,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
   if (!data) return null
 
-  const years = formatYears(Object.keys(data))
+  const years = parseYears(Object.keys(data))
   const yearsWithChange = parseChangesPerYear(years, data)
   const compound = calculateCompoundValues(
     1000,
