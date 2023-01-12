@@ -8,12 +8,15 @@ type Row = {
   [key: number]: string
 }
 
-type TableProps = {
+type PremiumTableProps = {
   carrier: string
   state: string
 }
 
-export const Table: React.FC<TableProps> = ({ carrier, state }) => {
+export const PremiumTable: React.FC<PremiumTableProps> = ({
+  carrier,
+  state,
+}) => {
   const [data, setData] = useState<Row[]>([])
 
   useEffect(() => {

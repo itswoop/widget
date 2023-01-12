@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { State } from '../../constants/states'
 import type { Carrier } from '../../types/carrier'
 import { Button } from '../form/button'
+import { PremiumTable } from '../premium-table'
 import { CarrierSelector } from '../selectors/carrier'
 import { StateSelector } from '../selectors/state'
-import { Table } from '../table'
 import styles from './card.module.css'
 
 export const Card = () => {
@@ -25,7 +25,7 @@ export const Card = () => {
           <Button>Submit</Button>
 
           {carrier && state && (
-            <Table carrier={carrier.name} state={state.code} />
+            <PremiumTable carrier={carrier.name} state={state.code} />
           )}
         </div>
       </div>
