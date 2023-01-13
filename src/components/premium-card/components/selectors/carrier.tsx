@@ -19,7 +19,7 @@ export const CarrierSelector: React.FC<CarrierSelectorProps> = ({
   return (
     <div className={styles.wrapper}>
       <Select
-        placeholder="Select a carrier..."
+        placeholder="Select your insurance carrier..."
         defaultValue={selectedOption}
         options={carriers.map(carrier => ({ label: carrier, value: carrier }))}
         onChange={e => {

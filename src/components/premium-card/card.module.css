@@ -19,7 +19,7 @@ h1 {
   align-items: center;
   justify-content: stretch;
   gap: 1rem;
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
 }
 
@@ -33,4 +33,46 @@ h1 {
     flex-direction: column;
     justify-content: stretch;
   }
+}
+
+.input {
+  border-radius: var(--br-default);
+  border: 1px solid var(--color-grey-light);
+  padding: 0.5rem 0.75rem;
+  font-size: var(--fs-default);
+}
+
+.table {
+  width: 100%;
+}
+
+.empty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  background: var(--color-grey-lightest);
+  border-radius: var(--br-default);
+
+  p {
+    max-width: 350px;
+    line-height: var(--lh-md);
+    text-align: center;
+  }
+}
+
+.transition {
+  transition-property: opacity, transform;
+  transition-duration: 400ms;
+}
+
+.transitionFrom {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.transitionTo {
+  opacity: 1;
+  transform: translateY(0);
 }

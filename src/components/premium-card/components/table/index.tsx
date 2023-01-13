@@ -8,38 +8,30 @@ import {
 } from './utils'
 
 type PremiumTableProps = {
-  rows: Row[]
-  carrier: string
-  state: string
+  item?: Row | null
+  startingPremium?: number
 }
 
 export const PremiumTable: React.FC<PremiumTableProps> = ({
-  rows,
-  carrier,
-  state,
+  item,
+  startingPremium = 1000,
 }) => {
-  if (!rows) return null
+  if (!item) return null
 
-  const data = rows.find(
-    row =>
-      row.carrier.toLowerCase() === carrier.toLowerCase() &&
-      row.state.toLowerCase() === state.toLowerCase(),
-  )
-
-  if (!data) return null
-
-  const years = parseYears(Object.keys(data))
-  const yearsWithChange = parseChangesPerYear(years, data)
+  const years = parseYears(Object.keys(item))
+  const yearsWithChange = parseChangesPerYear(years, item)
   const compound = calculateCompoundValues(
-    1000,
+    startingPremium,
     yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
   )
+
+  const gridTemplateColumns = `repeat(${years.length + 1}, 1fr)`
 
   return (
     <div className={styles.wrapper}>
       <table className={styles.table}>
         <thead>
-          <tr>
+          <tr style={{ gridTemplateColumns }}>
             <th></th>
             {years.map(year => (
               <th key={year}>{year}</th>
@@ -47,8 +39,8 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>Change</th>
+          <tr style={{ gridTemplateColumns }}>
+            <th>% Change</th>
             {yearsWithChange.map(({ year, percentInteger }) => (
               <td key={year}>
                 {percentInteger === null ? '–' : `${percentInteger}%`}
@@ -56,8 +48,8 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
             ))}
           </tr>
 
-          <tr className={styles.summary}>
-            <th>Example</th>
+          <tr className={styles.summary} style={{ gridTemplateColumns }}>
+            <th>Premium</th>
             {compound.map((value, index) => (
               <td key={index}>{formatMoneyString(value)}</td>
             ))}

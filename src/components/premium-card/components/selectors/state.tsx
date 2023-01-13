@@ -21,7 +21,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({ onChange }) => {
   return (
     <div className={styles.wrapper}>
       <Select
-        placeholder="Select a state..."
+        placeholder="Select your state..."
         defaultValue={selectedOption}
         options={options}
         onChange={e => {
