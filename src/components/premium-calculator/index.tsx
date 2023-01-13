@@ -4,14 +4,14 @@ import { State } from '../../constants/states'
 import { URLS } from '../../constants/urls'
 import { parseRemoteCsv } from '../../utils/parse'
 import { Input } from '../form/input'
-import styles from './card.module.css'
+import styles from './calculator.module.css'
 import { CarrierSelector } from './components/selectors/carrier'
 import { StateSelector } from './components/selectors/state'
 import { PremiumTable } from './components/table'
 import type { Row } from './types'
 import { findRow, getCarriers } from './utils'
 
-export const PremiumCard = () => {
+export const PremiumCalculator = () => {
   const [carrier, setCarrier] = useState<string | null>(null)
   const [state, setState] = useState<State | null>(null)
   const [premium, setPremium] = useState(1000)
