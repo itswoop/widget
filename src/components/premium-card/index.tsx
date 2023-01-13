@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { State } from '../../constants/states'
 import { URLS } from '../../constants/urls'
 import { parseRemoteCsv } from '../../utils/parse'
+import { Input } from '../form/input'
 import styles from './card.module.css'
 import { CarrierSelector } from './components/selectors/carrier'
 import { StateSelector } from './components/selectors/state'
@@ -13,6 +14,7 @@ import { findRow, getCarriers } from './utils'
 export const PremiumCard = () => {
   const [carrier, setCarrier] = useState<string | null>(null)
   const [state, setState] = useState<State | null>(null)
+  const [premium, setPremium] = useState(1000)
   const [rows, setRows] = useState<Row[]>([])
 
   useEffect(() => {
@@ -28,6 +30,14 @@ export const PremiumCard = () => {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.form}>
+          <Input
+            type="number"
+            value={premium}
+            min={0}
+            max={100000}
+            step={50}
+            onChange={e => setPremium(+e.target.value)}
+          />
           <CarrierSelector carriers={carriers} onChange={setCarrier} />
           <StateSelector onChange={setState} />
         </div>
@@ -35,14 +45,14 @@ export const PremiumCard = () => {
         {!row && (
           <div className={styles.empty}>
             <p>
-              Select your carrier and state to see how your premium could change
-              over time.
+              Select your insurance carrier and state to see how much your
+              carrier has increased your premium over time.
             </p>
           </div>
         )}
 
         <Transition
-          show={!!row}
+          show={!!row && !!carrier && !!state}
           className={styles.table}
           enter={styles.transition}
           enterFrom={styles.transitionFrom}
@@ -51,7 +61,12 @@ export const PremiumCard = () => {
           leaveFrom={styles.transitionTo}
           leaveTo={styles.transitionFrom}
         >
-          <PremiumTable item={row} />
+          <PremiumTable
+            state={state?.name!}
+            carrier={carrier!}
+            item={row}
+            startingPremium={premium}
+          />
         </Transition>
       </div>
     </div>

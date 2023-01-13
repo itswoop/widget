@@ -8,3 +8,12 @@ export const formatMoneyString = (value: number, decimals = 2) =>
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   }).format(value)
+
+/**
+ * Format a number as a decimal with a fixed number of decimals.
+ */
+export const formatDecimalString = (value: number, decimals = 2) =>
+  Intl.NumberFormat('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(value)

@@ -36,3 +36,24 @@ export const calculateCompoundValues = (
   percentages.forEach(percent => values.push((acc += acc * (percent / 100))))
   return values
 }
+
+/**
+ * Calculate all display data for a row.
+ */
+export const calculateData = (data: Row, startingPremium = 1000) => {
+  const years = parseYears(Object.keys(data))
+
+  const yearsWithChange = parseChangesPerYear(years, data)
+
+  const percentAverage = yearsWithChange
+    .map(({ percentInteger }) => percentInteger)
+    .filter(Boolean)
+    .reduce((acc, val) => (val === null ? acc : (acc || 0) + val))!
+
+  const compound = calculateCompoundValues(
+    startingPremium,
+    yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
+  )
+
+  return { years, yearsWithChange, percentAverage, compound }
+}
