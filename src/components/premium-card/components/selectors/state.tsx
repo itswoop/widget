@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Select from 'react-select'
-import { type State, US_STATES } from '../../constants/states'
+import { type State, US_STATES } from '../../../../constants/states'
 import styles from './styles.module.css'
 
 type StateSelectorProps = {

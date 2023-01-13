@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-import { URLS } from '../../constants/data'
-import { formatMoneyString } from '../../utils/format'
-import { parseRemoteCsv } from '../../utils/parse'
+import { formatMoneyString } from '../../../../utils/format'
+import type { Row } from '../../types'
 import styles from './table.module.css'
 import {
   calculateCompoundValues,
@@ -9,29 +7,17 @@ import {
   parseChangesPerYear,
 } from './utils'
 
-export type Row = {
-  carrier: string
-  state: string
-  [key: number]: string
-}
-
 type PremiumTableProps = {
+  rows: Row[]
   carrier: string
   state: string
 }
 
 export const PremiumTable: React.FC<PremiumTableProps> = ({
+  rows,
   carrier,
   state,
 }) => {
-  const [rows, setRows] = useState<Row[]>([])
-
-  useEffect(() => {
-    parseRemoteCsv<Row>(URLS.CSV_DATA, { header: true }).then(({ data }) =>
-      setRows(data),
-    )
-  }, [])
-
   if (!rows) return null
 
   const data = rows.find(
@@ -64,7 +50,9 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
           <tr>
             <th>Change</th>
             {yearsWithChange.map(({ year, percentInteger }) => (
-              <td key={year}>{percentInteger ? `${percentInteger}%` : '–'}</td>
+              <td key={year}>
+                {percentInteger === null ? '–' : `${percentInteger}%`}
+              </td>
             ))}
           </tr>
 

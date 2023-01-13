@@ -1,8 +1,8 @@
-import { Card } from './components/card'
+import { PremiumCard } from './components/premium-card'
 import './css/app.css'
 
 export const App = () => (
   <div>
-    <Card />
+    <PremiumCard />
   </div>
 )

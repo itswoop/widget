@@ -1,4 +1,4 @@
-import { Row } from '.'
+import type { Row } from '../../types'
 
 /**
  * Parse a string array of possible years, and return an array of numbers with an additional year at the start.
@@ -13,10 +13,14 @@ export const parseYears = (years: string[]) => {
  * Using the year percentage data from a row, map each year to its percentage as an integer.
  */
 export const parseChangesPerYear = (years: number[], data: Row) =>
-  years.map(year => ({
-    year,
-    percentInteger: Number(data[year]?.replace('%', '')) || null,
-  }))
+  years.map(year => {
+    const value = Number(data[year]?.replace('%', ''))
+
+    return {
+      year,
+      percentInteger: isNaN(value) ? null : value,
+    }
+  })
 
 /**
  * Calculate the compound percentage interest for a given start value and an array of percentages.

@@ -12,6 +12,7 @@
   text-align: right;
 
   tr {
+    display: flex;
     flex-direction: row;
     gap: 1rem;
     width: 100%;
