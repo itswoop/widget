@@ -10,21 +10,19 @@
   width: 100%;
   max-width: 100%;
   text-align: right;
-}
 
-.table tr {
-  flex-direction: row;
-  gap: 1rem;
-  width: 100%;
-}
+  tr {
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+  }
 
-.table th,
-.table td {
-  flex-shrink: 0;
-  flex: 1;
-  padding: 0.5rem;
+  th, td {
+    flex-shrink: 0;
+    flex: 1;
+    padding: 0.5rem;
+  }
 }
-
 
 .summary {
   background-color: var(--color-grey-light);
