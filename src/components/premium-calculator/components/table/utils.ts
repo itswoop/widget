@@ -25,7 +25,7 @@ export const parseChangesPerYear = (years: number[], data: Row) =>
 /**
  * Calculate the compound percentage interest for a given start value and an array of percentages.
  *
- * Returns an array of values, not the final interest, with the first value being the start value.
+ * @returns An array of values, with the first being the start value.
  */
 export const calculateCompoundValues = (
   start: number,
@@ -35,4 +35,24 @@ export const calculateCompoundValues = (
   const values = [start]
   percentages.forEach(percent => values.push((acc += acc * (percent / 100))))
   return values
+}
+
+/**
+ * Calculate all display data for a row.
+ */
+export const calculateData = (data: Row, startingPremium = 1000) => {
+  const years = parseYears(Object.keys(data))
+
+  const yearsWithChange = parseChangesPerYear(years, data)
+
+  const compoundValues = calculateCompoundValues(
+    startingPremium,
+    yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
+  )
+
+  const finalValue = compoundValues[compoundValues.length - 1]
+  const diff = finalValue - startingPremium
+  const percentIncrease = (diff / startingPremium) * 100
+
+  return { years, yearsWithChange, compoundValues, percentIncrease }
 }

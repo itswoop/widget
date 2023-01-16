@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import { State } from '../../constants/states'
 import { URLS } from '../../constants/urls'
 import { parseRemoteCsv } from '../../utils/parse'
-import styles from './card.module.css'
+import styles from './calculator.module.css'
 import { CarrierSelector } from './components/selectors/carrier'
 import { StateSelector } from './components/selectors/state'
 import { PremiumTable } from './components/table'
 import type { Row } from './types'
 import { findRow, getCarriers } from './utils'
 
-export const PremiumCard = () => {
+export const PremiumCalculator = () => {
   const [carrier, setCarrier] = useState<string | null>(null)
   const [state, setState] = useState<State | null>(null)
   const [rows, setRows] = useState<Row[]>([])
@@ -35,14 +35,14 @@ export const PremiumCard = () => {
         {!row && (
           <div className={styles.empty}>
             <p>
-              Select your carrier and state to see how your premium could change
-              over time.
+              Select your insurance carrier and state to see how much your
+              carrier has increased your premium over time.
             </p>
           </div>
         )}
 
         <Transition
-          show={!!row}
+          show={!!row && !!carrier && !!state}
           className={styles.table}
           enter={styles.transition}
           enterFrom={styles.transitionFrom}
@@ -51,7 +51,7 @@ export const PremiumCard = () => {
           leaveFrom={styles.transitionTo}
           leaveTo={styles.transitionFrom}
         >
-          <PremiumTable item={row} />
+          <PremiumTable state={state?.name} carrier={carrier} item={row} />
         </Transition>
       </div>
     </div>

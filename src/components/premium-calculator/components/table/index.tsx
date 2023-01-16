@@ -1,29 +1,28 @@
-import { formatMoneyString } from '../../../../utils/format'
+import {
+  formatDecimalString,
+  formatMoneyString,
+} from '../../../../utils/format'
 import type { Row } from '../../types'
 import styles from './table.module.css'
-import {
-  calculateCompoundValues,
-  parseYears,
-  parseChangesPerYear,
-} from './utils'
+import { calculateData } from './utils'
 
 type PremiumTableProps = {
   item?: Row | null
+  carrier?: string | null
+  state?: string | null
   startingPremium?: number
 }
 
 export const PremiumTable: React.FC<PremiumTableProps> = ({
   item,
+  carrier,
+  state,
   startingPremium = 1000,
 }) => {
-  if (!item) return null
+  if (!item || !carrier || !state) return null
 
-  const years = parseYears(Object.keys(item))
-  const yearsWithChange = parseChangesPerYear(years, item)
-  const compound = calculateCompoundValues(
-    startingPremium,
-    yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
-  )
+  const { years, yearsWithChange, percentIncrease, compoundValues } =
+    calculateData(item, startingPremium)
 
   const gridTemplateColumns = `repeat(${years.length + 1}, 1fr)`
 
@@ -50,12 +49,24 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
           <tr className={styles.summary} style={{ gridTemplateColumns }}>
             <th>Premium</th>
-            {compound.map((value, index) => (
+            {compoundValues.map((value, index) => (
               <td key={index}>{formatMoneyString(value)}</td>
             ))}
           </tr>
         </tbody>
       </table>
+
+      <p>
+        {carrier} has increased their premiums by{' '}
+        {formatDecimalString(percentIncrease, 1)}% in {state} over the last{' '}
+        {years.length - 1} years. This means that if your insurance premium was{' '}
+        <strong>{formatMoneyString(startingPremium)}</strong> in {years[0]}, you
+        would be paying{' '}
+        <strong>
+          {formatMoneyString(compoundValues[compoundValues.length - 1])}
+        </strong>{' '}
+        today.
+      </p>
     </div>
   )
 }
