@@ -56,7 +56,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
         </tbody>
       </table>
 
-      <p>
+      <p className={styles.explainer}>
         {carrier} has increased their premiums by{' '}
         {formatDecimalString(percentIncrease, 1)}% in {state} over the last{' '}
         {years.length - 1} years. This means that if your insurance premium was{' '}

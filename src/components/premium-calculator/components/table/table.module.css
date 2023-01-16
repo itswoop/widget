@@ -35,3 +35,7 @@
   background-color: var(--color-grey-light);
   border-radius: var(--br-default);
 }
+
+.explainer {
+  margin-bottom: 0;
+}
