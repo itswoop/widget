@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { State } from '../../constants/states'
 import { URLS } from '../../constants/urls'
 import { parseRemoteCsv } from '../../utils/parse'
-import { Input } from '../form/input'
 import styles from './calculator.module.css'
 import { CarrierSelector } from './components/selectors/carrier'
 import { StateSelector } from './components/selectors/state'
@@ -14,7 +13,6 @@ import { findRow, getCarriers } from './utils'
 export const PremiumCalculator = () => {
   const [carrier, setCarrier] = useState<string | null>(null)
   const [state, setState] = useState<State | null>(null)
-  const [premium, setPremium] = useState(1000)
   const [rows, setRows] = useState<Row[]>([])
 
   useEffect(() => {
@@ -30,14 +28,6 @@ export const PremiumCalculator = () => {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.form}>
-          <Input
-            type="number"
-            value={premium}
-            min={0}
-            max={100000}
-            step={50}
-            onChange={e => setPremium(+e.target.value)}
-          />
           <CarrierSelector carriers={carriers} onChange={setCarrier} />
           <StateSelector onChange={setState} />
         </div>
@@ -61,12 +51,7 @@ export const PremiumCalculator = () => {
           leaveFrom={styles.transitionTo}
           leaveTo={styles.transitionFrom}
         >
-          <PremiumTable
-            state={state?.name!}
-            carrier={carrier!}
-            item={row}
-            startingPremium={premium}
-          />
+          <PremiumTable state={state?.name} carrier={carrier} item={row} />
         </Transition>
       </div>
     </div>

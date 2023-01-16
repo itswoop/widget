@@ -8,8 +8,8 @@ import { calculateData } from './utils'
 
 type PremiumTableProps = {
   item?: Row | null
-  carrier: string
-  state: string
+  carrier?: string | null
+  state?: string | null
   startingPremium?: number
 }
 
@@ -19,12 +19,10 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
   state,
   startingPremium = 1000,
 }) => {
-  if (!item) return null
+  if (!item || !carrier || !state) return null
 
-  const { years, yearsWithChange, percentAverage, compound } = calculateData(
-    item,
-    startingPremium,
-  )
+  const { years, yearsWithChange, percentIncrease, compoundValues } =
+    calculateData(item, startingPremium)
 
   const gridTemplateColumns = `repeat(${years.length + 1}, 1fr)`
 
@@ -51,7 +49,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
           <tr className={styles.summary} style={{ gridTemplateColumns }}>
             <th>Premium</th>
-            {compound.map((value, index) => (
+            {compoundValues.map((value, index) => (
               <td key={index}>{formatMoneyString(value)}</td>
             ))}
           </tr>
@@ -60,11 +58,13 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
       <p>
         {carrier} has increased their premiums by{' '}
-        {formatDecimalString(percentAverage, 1)}% in {state} over the last{' '}
+        {formatDecimalString(percentIncrease, 1)}% in {state} over the last{' '}
         {years.length - 1} years. This means that if your insurance premium was{' '}
         <strong>{formatMoneyString(startingPremium)}</strong> in {years[0]}, you
         would be paying{' '}
-        <strong>{formatMoneyString(compound[compound.length - 1])}</strong>{' '}
+        <strong>
+          {formatMoneyString(compoundValues[compoundValues.length - 1])}
+        </strong>{' '}
         today.
       </p>
     </div>
