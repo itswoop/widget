@@ -21,8 +21,10 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 }) => {
   if (!item || !carrier || !state) return null
 
-  const { years, yearsWithChange, percentIncrease, compoundValues } =
-    calculateData(item, startingPremium)
+  const { years, yearsWithChange, compoundValues } = calculateData(
+    item,
+    startingPremium,
+  )
 
   const gridTemplateColumns = `repeat(${years.length + 1}, 1fr)`
 
@@ -31,7 +33,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
       <table className={styles.table}>
         <thead>
           <tr style={{ gridTemplateColumns }}>
-            <th></th>
+            <th className={styles.fixed} />
             {years.map(year => (
               <th key={year}>{year}</th>
             ))}
@@ -39,16 +41,18 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
         </thead>
         <tbody>
           <tr style={{ gridTemplateColumns }}>
-            <th>% Change</th>
+            <th className={styles.fixed}>% Change</th>
             {yearsWithChange.map(({ year, percentInteger }) => (
               <td key={year}>
-                {percentInteger === null ? '–' : `${percentInteger}%`}
+                {percentInteger === null
+                  ? '–'
+                  : `${formatDecimalString(percentInteger, 1)}%`}
               </td>
             ))}
           </tr>
 
           <tr className={styles.summary} style={{ gridTemplateColumns }}>
-            <th>Premium</th>
+            <th className={styles.fixed}>Annual payment</th>
             {compoundValues.map((value, index) => (
               <td key={index}>{formatMoneyString(value)}</td>
             ))}
@@ -57,11 +61,10 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
       </table>
 
       <p className={styles.explainer}>
-        {carrier} has increased their premiums by{' '}
-        {formatDecimalString(percentIncrease, 1)}% in {state} over the last{' '}
-        {years.length - 1} years. This means that if your insurance premium was{' '}
-        <strong>{formatMoneyString(startingPremium)}</strong> in {years[0]}, you
-        would be paying{' '}
+        {carrier} has increased their premiums in {state} over the last{' '}
+        {years.length - 1} years. This means that if your annual insurance
+        payment was <strong>{formatMoneyString(startingPremium)}</strong> in{' '}
+        {years[0]}, you would be paying{' '}
         <strong>
           {formatMoneyString(compoundValues[compoundValues.length - 1])}
         </strong>{' '}

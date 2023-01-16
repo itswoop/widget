@@ -15,11 +15,7 @@ export const parseYears = (years: string[]) => {
 export const parseChangesPerYear = (years: number[], data: Row) =>
   years.map(year => {
     const value = Number(data[year]?.replace('%', ''))
-
-    return {
-      year,
-      percentInteger: isNaN(value) ? null : value,
-    }
+    return { year, percentInteger: isNaN(value) ? null : value }
   })
 
 /**
@@ -50,9 +46,5 @@ export const calculateData = (data: Row, startingPremium = 1000) => {
     yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
   )
 
-  const finalValue = compoundValues[compoundValues.length - 1]
-  const diff = finalValue - startingPremium
-  const percentIncrease = (diff / startingPremium) * 100
-
-  return { years, yearsWithChange, compoundValues, percentIncrease }
+  return { years, yearsWithChange, compoundValues }
 }
