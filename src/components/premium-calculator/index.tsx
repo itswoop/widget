@@ -8,7 +8,7 @@ import { CarrierSelector } from './components/selectors/carrier'
 import { StateSelector } from './components/selectors/state'
 import { PremiumTable } from './components/table'
 import type { Row } from './types'
-import { findRow, getCarriers } from './utils'
+import { findRow, getCarriers, getStateCodesForCarrier } from './utils'
 
 export const PremiumCalculator = () => {
   const [carrier, setCarrier] = useState<string | null>(null)
@@ -22,6 +22,7 @@ export const PremiumCalculator = () => {
   }, [])
 
   const carriers = getCarriers(rows)
+  const states = getStateCodesForCarrier(rows, carrier)
   const row = findRow(rows, carrier, state?.code)
 
   return (
@@ -29,7 +30,7 @@ export const PremiumCalculator = () => {
       <div className={styles.content}>
         <div className={styles.form}>
           <CarrierSelector carriers={carriers} onChange={setCarrier} />
-          <StateSelector onChange={setState} />
+          <StateSelector stateCodes={states} onChange={setState} />
         </div>
 
         {!row && (

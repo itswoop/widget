@@ -30,35 +30,37 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <table className={styles.table}>
-        <thead>
-          <tr style={{ gridTemplateColumns }}>
-            <th className={styles.fixed} />
-            {years.map(year => (
-              <th key={year}>{year}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr style={{ gridTemplateColumns }}>
-            <th className={styles.fixed}>% Change</th>
-            {yearsWithChange.map(({ year, percentInteger }) => (
-              <td key={year}>
-                {percentInteger === null
-                  ? '–'
-                  : `${formatDecimalString(percentInteger, 1)}%`}
-              </td>
-            ))}
-          </tr>
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>
+          <thead>
+            <tr style={{ gridTemplateColumns }}>
+              <th className={styles.fixed} />
+              {years.map(year => (
+                <th key={year}>{year}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={{ gridTemplateColumns }}>
+              <th className={styles.fixed}>% Change</th>
+              {yearsWithChange.map(({ year, percentInteger }) => (
+                <td key={year}>
+                  {percentInteger === null
+                    ? '–'
+                    : `${formatDecimalString(percentInteger, 1)}%`}
+                </td>
+              ))}
+            </tr>
 
-          <tr className={styles.summary} style={{ gridTemplateColumns }}>
-            <th className={styles.fixed}>Annual payment</th>
-            {compoundValues.map((value, index) => (
-              <td key={index}>{formatMoneyString(value)}</td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+            <tr className={styles.summary} style={{ gridTemplateColumns }}>
+              <th className={styles.fixed}>Annual payment</th>
+              {compoundValues.map((value, index) => (
+                <td key={index}>{formatMoneyString(value)}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p className={styles.explainer}>
         {carrier} has increased their premiums in {state} over the last{' '}

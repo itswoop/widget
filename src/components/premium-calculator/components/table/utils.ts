@@ -14,8 +14,9 @@ export const parseYears = (years: string[]) => {
  */
 export const parseChangesPerYear = (years: number[], data: Row) =>
   years.map(year => {
-    const value = Number(data[year]?.replace('%', ''))
-    return { year, percentInteger: isNaN(value) ? null : value }
+    const str = data[year]?.replace('%', '')
+    const percentInteger = str === '' || str === undefined ? null : Number(str)
+    return { year, percentInteger }
   })
 
 /**

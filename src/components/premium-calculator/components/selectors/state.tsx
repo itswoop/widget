@@ -4,15 +4,21 @@ import { type State, US_STATES } from '../../../../constants/states'
 import styles from './styles.module.css'
 
 type StateSelectorProps = {
+  stateCodes: string[]
   onChange: (state: State | null) => void
 }
 
-const options = US_STATES.map(state => ({
-  label: state.name,
-  value: state.code,
-}))
+export const StateSelector: React.FC<StateSelectorProps> = ({
+  stateCodes,
+  onChange,
+}) => {
+  const options = US_STATES.filter(state =>
+    stateCodes.includes(state.code),
+  ).map(state => ({
+    label: state.name,
+    value: state.code,
+  }))
 
-export const StateSelector: React.FC<StateSelectorProps> = ({ onChange }) => {
   const [selectedOption, setSelectedOption] = useState<{
     label: string
     value: string
@@ -23,6 +29,7 @@ export const StateSelector: React.FC<StateSelectorProps> = ({ onChange }) => {
       <Select
         placeholder="Select your state..."
         defaultValue={selectedOption}
+        noOptionsMessage={() => 'Please select a carrier first.'}
         options={options}
         onChange={e => {
           setSelectedOption(e)
