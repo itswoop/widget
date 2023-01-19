@@ -21,10 +21,8 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
 }) => {
   if (!item || !carrier || !state) return null
 
-  const { years, yearsWithChange, compoundValues } = calculateData(
-    item,
-    startingPremium,
-  )
+  const { years, yearsWithChange, compoundValues, percentChange } =
+    calculateData(item, startingPremium)
 
   const gridTemplateColumns = `repeat(${years.length + 1}, 1fr)`
 
@@ -63,8 +61,9 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
       </div>
 
       <p className={styles.explainer}>
-        {carrier} has increased their premiums in {state} over the last{' '}
-        {years.length - 1} years. This means that if your annual insurance
+        {carrier} has {percentChange >= 0 ? 'increased' : 'decreased'} their
+        premiums by {formatDecimalString(percentChange, 1)}% in {state} over the
+        last {years.length - 1} years. This means that if your annual insurance
         payment was <strong>{formatMoneyString(startingPremium)}</strong> in{' '}
         {years[0]}, you would be paying{' '}
         <strong>

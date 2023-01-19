@@ -56,5 +56,9 @@ export const calculateData = (data: Row, startingPremium = 1000) => {
     yearsWithChange.slice(1).map(({ percentInteger }) => percentInteger!),
   )
 
-  return { years, yearsWithChange, compoundValues }
+  const finalValue = compoundValues[compoundValues.length - 1]
+  const diff = finalValue - startingPremium
+  const percentChange = (diff / startingPremium) * 100
+
+  return { years, yearsWithChange, compoundValues, percentChange }
 }
