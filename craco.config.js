@@ -10,7 +10,6 @@ module.exports = {
           require('postcss-nested'),
           ...postcssLoaderOptions.postcssOptions.plugins,
         ]
-
         return postcssLoaderOptions
       },
     },

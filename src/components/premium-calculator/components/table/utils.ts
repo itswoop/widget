@@ -3,8 +3,17 @@ import type { Row } from '../../types'
 /**
  * Parse a string array of possible years, and return an array of numbers with an additional year at the start.
  */
-export const parseYears = (years: string[]) => {
-  const validYears = years.map(Number).filter(year => !isNaN(year))
+export const parseAndPadYears = (years: string[]) => {
+  const validYears = years
+    .map(year => {
+      if (year === '') return null
+      const yearNumber = Number(year)
+      if (Number.isNaN(yearNumber)) return null
+      return yearNumber
+    })
+    .filter(Boolean) as number[]
+
+  if (validYears.length === 0) return []
   const minYear = Math.min(...validYears)
   return [minYear - 1, ...validYears]
 }
@@ -38,7 +47,7 @@ export const calculateCompoundValues = (
  * Calculate all display data for a row.
  */
 export const calculateData = (data: Row, startingPremium = 1000) => {
-  const years = parseYears(Object.keys(data))
+  const years = parseAndPadYears(Object.keys(data))
 
   const yearsWithChange = parseChangesPerYear(years, data)
 
