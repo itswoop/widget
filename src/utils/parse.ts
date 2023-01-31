@@ -16,7 +16,7 @@ export const parseRemoteCsv = async <T = unknown>(
       download: true,
       complete: resolve,
       error: reject,
-      transformHeader: header => header.trim(),
       transform: value => value.trim(),
+      transformHeader: header => header.trim(),
     })
   })
