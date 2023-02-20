@@ -60,7 +60,7 @@ export const PremiumTable: React.FC<PremiumTableProps> = ({
           </table>
         </div>
         <p className={styles.explainer}>
-          {carrier} has {percentChange >= 0 ? 'increased' : 'decreased'} their
+          {carrier} has {percentChange >= 0 ? 'increased' : 'decreased'} their auto
           premiums by {formatDecimalString(percentChange, 1)}% in {state} over
           the last {years.length - 1} years. This means that if your annual
           insurance payment was{' '}
