@@ -36,8 +36,8 @@ export const PremiumCalculator = () => {
         {!row && (
           <div className={styles.empty}>
             <p>
-              Select your state and insurance company to see how much your
-              auto premiums have increased over time.
+              Select your state and insurance company to see how much your auto
+              premiums have increased over time.
             </p>
           </div>
         )}
